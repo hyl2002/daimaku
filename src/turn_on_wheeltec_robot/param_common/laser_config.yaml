@@ -1,0 +1,19 @@
+scan_filter_chain:
+- name: box
+  type: laser_filters/LaserScanBoxFilter
+  params:
+    box_frame: base_footprint
+    min_x: -0.25
+    max_x:  0.25
+    min_y: -0.25
+    max_y:  0.25
+    min_z: -1
+    max_z: 1
+    window: 4
+# - name: shadow
+#   type: laser_filters/ScanShadowsFilter
+#   params:
+#     min_angle: 10
+#     max_angle: 170
+#     neighbors: 20
+#     window: 1
