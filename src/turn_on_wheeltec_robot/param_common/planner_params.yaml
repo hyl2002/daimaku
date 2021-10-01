@@ -1,13 +1,16 @@
-TebLocalPlannerROS:
+DWAPlannerROS:
 
  odom_topic: /odom_combined
  #odom_topic: /robot_pose_ekf/odom_combined
  #map_frame: /odom
  map_frame: /odom_combined
-
+  
+ purne_plan: false 
+ use_dwa: true 
+ restore_defaults: true 
+ 
  # Trajectory
 
- teb_autosize: True #优化期间允许改变轨迹的时域长度
  dt_ref: 0.20 #局部路径规划的解析度# minimum 0.01
  dt_hysteresis: 0.02 #允许改变的时域解析度的浮动范围， 一般为 dt_ref 的 10% 左右 minimum0.002
  global_plan_overwrite_orientation: True #覆盖全局路径中局部路径点的朝向
