@@ -73,8 +73,8 @@ class Navigation:
         # 调用move_base前的准备工作
         self.move_base_prepare()
 
-        rospy.on_shutdown(self.shutdown)
-        self.rest_time = rospy.get_param("~rest_time", 1)  # 在每个目标位置暂停的时间
+        # rospy.on_shutdown(self.shutdown)
+        self.rest_time = rospy.get_param("~rest_time", 0)  # 在每个目标位置暂停的时间
 
         # 初始化各点坐标
         self.coordinates_init()
@@ -122,8 +122,8 @@ class Navigation:
         self.coordinates.append([0.65, 1.90])  # p0
         self.coordinates.append([1.25, 1.90])  # p1
         self.coordinates.append([3.85, 1.90])  # p2
-        self.coordinates.append([4.45, 1.90])  # p3
-        self.coordinates.append([4.45, 0.65])  # p4
+        self.coordinates.append([4.5, 1.90])  # p3
+        self.coordinates.append([4.5, 0.65])  # p4
         self.coordinates.append([3.85, 0.65])  # p5
         self.coordinates.append([2.85, 0.65])  # p6
         self.coordinates.append([2.25, 0.65])  # p7
@@ -137,15 +137,16 @@ class Navigation:
         self.coordinates.append([0.964, 1.125])  # r4: 8 9
 
         # 抓取点 1.5 ~ 3.5
-        self.coordinates.append([1.80, 2.15])  # g0
-        self.coordinates.append([2.10, 2.15])  # g1
-        self.coordinates.append([2.40, 2.15])  # g2
-        self.coordinates.append([2.70, 2.15])  # g3
-        self.coordinates.append([3.00, 2.15])  # g4
-        self.coordinates.append([3.30, 2.15])  # g5
+        self.coordinates.append([1.80, 2.19])  # g0
+        self.coordinates.append([2.10, 2.17])  # g1
+        self.coordinates.append([2.40, 2.17])  # g2
+        self.coordinates.append([2.70, 2.2])  # g3
+        self.coordinates.append([3.00, 2.2])  # g4
+        self.coordinates.append([3.30, 2.2])  # g5
 
         # self.coordinates.append([3.10, 1.95])    # start
         self.coordinates.append([1.0, 1.0])    # start
+        self.coordinates.append([2.5, 1.75])    # middle
 
         # 对每个绝对坐标逐个施加变换,使之变成map坐标系下的坐标
         for i in self.coordinates:
@@ -227,6 +228,16 @@ class Navigation:
                     euler_to_quaternion(math.radians(0), 0, 0)[3],
                 ),
             )
+        for i in range(1):
+            self.locations["middle"] = Pose(
+                Point(self.coordinates[i + 22][0], self.coordinates[i + 22][1], 0.000),
+                Quaternion(
+                    0.000,
+                    0.000,
+                    euler_to_quaternion(math.radians(90), 0, 0)[2],
+                    euler_to_quaternion(math.radians(90), 0, 0)[3],
+                ),
+            )
  
     def send_goal(self):
 
@@ -301,7 +312,7 @@ def shutdown():
 if __name__ == "__main__":
     try:
         Navigation()
-        rospy.on_shutdown(shutdown)
+        # rospy.on_shutdown(shutdown)
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Random navigation finished.")

@@ -9,6 +9,7 @@
    <include file="$(find turn_on_robot)/launch/include/base_serial.launch" />
    <!-- turn on ekf 扩张卡尔曼滤波 -->
    <include file="$(find turn_on_robot)/launch/include/robot_pose_ekf.launch" />
+   <!-- <include file="$(find turn_on_robot)/launch/include/rf2o_laser_odometry.launch" /> -->
    <!-- URDF 标准化机器人描述格式 -->
   <param name = "robot_description" textfile = "$(find robot_urdf)/urdf/robot.urdf"/> 
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />

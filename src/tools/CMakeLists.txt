@@ -15,6 +15,8 @@ find_package(catkin REQUIRED COMPONENTS
   tf
 )
 
+catkin_package()
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -166,7 +168,6 @@ include_directories(
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
-
 #############
 ## Testing ##
 #############

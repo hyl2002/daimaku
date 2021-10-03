@@ -7,16 +7,17 @@ planner_frequency: 1.0  #全局规划操作的执行频率.如果设置为0.0,�
 #       在接收到新的目标点或者局部规划器报告路径堵塞时才会重新执行规划操作.
 planner_patience: 3.0  #在空间清理操作执行前,留给规划器多长时间来找出一条有效规划.
 
-oscillation_timeout: 6.0  #执行修复机制前,允许振荡的时长.
-oscillation_distance: 0.3  #来回运动在多大距离以上不会被认为是振荡.
+oscillation_timeout: 10.0  #执行修复机制前,允许振荡的时长.
+oscillation_distance: 0.05  #来回运动在多大距离以上不会被认为是振荡.
 
 # Planner selection 规划器选项
 base_global_planner: "global_planner/GlobalPlanner" #指定用于move_base的全局规划器插件名称.
-# base_local_planner: "teb_local_planner/TebLocalPlannerROS" # 指定用于move_base的局部规划器插件名称.
-base_local_planner: "eband_local_planner/EBandPlannerROS" # 指定用于move_base的局部规划器插件名称.
+# base_local_planner: "base_local_planner/TrajectoryPlannerROS"
+base_local_planner: "teb_local_planner/TebLocalPlannerROS" # 指定用于move_base的局部规划器插件名称.
+# base_local_planner: "eband_local_planner/EBandPlannerROS" # 指定用于move_base的局部规划器插件名称.
 max_planning_retries: 1  #
 
-recovery_behavior_enabled: false  #
+recovery_behavior_enabled: true  #
 clearing_rotation_allowed: true  #
 
 recovery_behaviors:  #
@@ -28,8 +29,8 @@ recovery_behaviors:  #
   #  type: 'clear_costmap_recovery/ClearCostmapRecovery'
   - name: 'clearing_rotation'  #
     type: 'rotate_recovery/RotateRecovery'  #
-  #- name: 'move_slow_and_clear'
-    #type: 'move_slow_and_clear/MoveSlowAndClear'
+  # - name: 'move_slow_and_clear'
+  #   type: 'move_slow_and_clear/MoveSlowAndClear'
     
 conservative_reset:  #
   reset_distance: 1.0  #

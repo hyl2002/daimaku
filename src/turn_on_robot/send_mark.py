@@ -10,7 +10,7 @@ import actionlib
 from move_base_msgs.msg import *
 
 def pose_callback(msg):
-    global try_again, index, add_more_point, try_again, index, try_again, index, add_more_point, try_again, index
+    global try_again, index, add_more_point
     if msg.status.status == 3:              #表示在终端状态下操作服务器已成功完成目标
         try_again = 1
         if add_more_point == 0:             #当计数点等于目标点，完成目标点
@@ -59,7 +59,7 @@ def pose_callback(msg):
 
 
 def press_callback(msg):           #点击一个点的回调函数
-    global index, add_more_point, count, index, add_more_point, count
+    global index, add_more_point, count
     marker = Marker()                       #marker 赋值
     marker.header.frame_id = 'map'
     marker.type = marker.TEXT_VIEW_FACING
