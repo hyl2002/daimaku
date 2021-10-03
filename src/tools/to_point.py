@@ -119,16 +119,16 @@ class Navigation:
 
         # 各投递点初始坐标
         self.coordinates = list()
-        self.coordinates.append([0.65, 1.80])  # p0
-        self.coordinates.append([1.25, 1.80])  # p1
-        self.coordinates.append([3.85, 1.80])  # p2
-        self.coordinates.append([4.45, 1.80])  # p3
-        self.coordinates.append([4.45, 0.70])  # p4
-        self.coordinates.append([3.85, 0.70])  # p5
-        self.coordinates.append([2.85, 0.70])  # p6
-        self.coordinates.append([2.25, 0.70])  # p7
-        self.coordinates.append([1.25, 0.70])  # p8
-        self.coordinates.append([0.65, 0.70])  # p9
+        self.coordinates.append([0.65, 1.90])  # p0
+        self.coordinates.append([1.25, 1.90])  # p1
+        self.coordinates.append([3.85, 1.90])  # p2
+        self.coordinates.append([4.45, 1.90])  # p3
+        self.coordinates.append([4.45, 0.65])  # p4
+        self.coordinates.append([3.85, 0.65])  # p5
+        self.coordinates.append([2.85, 0.65])  # p6
+        self.coordinates.append([2.25, 0.65])  # p7
+        self.coordinates.append([1.25, 0.65])  # p8
+        self.coordinates.append([0.65, 0.65])  # p9
         # 识别点
         self.coordinates.append([0.965, 1.575])  # r0: 0 1
         self.coordinates.append([4.150, 1.525])  # r1: 2 3
@@ -137,15 +137,15 @@ class Navigation:
         self.coordinates.append([0.964, 1.125])  # r4: 8 9
 
         # 抓取点 1.5 ~ 3.5
-        self.coordinates.append([1.80, 1.82])  # g0
-        self.coordinates.append([2.10, 1.82])  # g1
-        self.coordinates.append([2.40, 1.82])  # g2
-        self.coordinates.append([2.70, 1.82])  # g3
-        self.coordinates.append([3.00, 1.82])  # g4
-        self.coordinates.append([3.30, 1.82])  # g5
+        self.coordinates.append([1.80, 2.15])  # g0
+        self.coordinates.append([2.10, 2.15])  # g1
+        self.coordinates.append([2.40, 2.15])  # g2
+        self.coordinates.append([2.70, 2.15])  # g3
+        self.coordinates.append([3.00, 2.15])  # g4
+        self.coordinates.append([3.30, 2.15])  # g5
 
         # self.coordinates.append([3.10, 1.95])    # start
-        self.coordinates.append([0.7, 0.8])    # start
+        self.coordinates.append([1.0, 1.0])    # start
 
         # 对每个绝对坐标逐个施加变换,使之变成map坐标系下的坐标
         for i in self.coordinates:
