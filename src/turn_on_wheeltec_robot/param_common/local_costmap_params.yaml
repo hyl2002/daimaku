@@ -7,7 +7,7 @@ local_costmap:
    rolling_window: true #参数设置为true意味着当机器人移动时，保持机器人在本地代价地图中心。
    width: 2.0 #代价地图宽度
    height: 2.0 #代价地图高度
-   resolution: 0.05 #代价地图分辨率（米/单元格）
+   resolution: 0.03 #代价地图分辨率（米/单元格）
    transform_tolerance: 0.5
    plugins:
     - {name: obstacle_layer,      type: "costmap_2d::ObstacleLayer"}

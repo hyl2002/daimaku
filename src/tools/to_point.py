@@ -40,8 +40,10 @@ class Navigation:
         coordinate[1] -= 0.79
 
     def __init__(self):
+        self.succeed = False
         # 传入参数为1时启用内置坐标，为4时导航至指定坐标
         self.locations = dict()
+        # sys.argv.append("g2")
         if len(sys.argv) == 2:
             print("前往" + sys.argv[1]+":")
         elif len(sys.argv)==5:
@@ -128,8 +130,8 @@ class Navigation:
         self.coordinates.append([1.25, 0.70])  # p8
         self.coordinates.append([0.65, 0.70])  # p9
         # 识别点
-        self.coordinates.append([0.965, 1.125])  # r0: 0 1
-        self.coordinates.append([4.150, 1.125])  # r1: 2 3
+        self.coordinates.append([0.965, 1.575])  # r0: 0 1
+        self.coordinates.append([4.150, 1.525])  # r1: 2 3
         self.coordinates.append([4.150, 1.125])  # r2: 4 5
         self.coordinates.append([2.450, 1.125])  # r3: 6 7
         self.coordinates.append([0.964, 1.125])  # r4: 8 9
@@ -142,7 +144,8 @@ class Navigation:
         self.coordinates.append([3.00, 1.82])  # g4
         self.coordinates.append([3.30, 1.82])  # g5
 
-        self.coordinates.append([3.10, 1.95])    # start
+        # self.coordinates.append([3.10, 1.95])    # start
+        self.coordinates.append([0.7, 0.8])    # start
 
         # 对每个绝对坐标逐个施加变换,使之变成map坐标系下的坐标
         for i in self.coordinates:
@@ -200,9 +203,9 @@ class Navigation:
                 ),
             )
         # 0~5抓取点位姿确定
-        for i in range(7):
+        for i in range(6):
             self.locations["g" + str(i)] = Pose(
-                Point(self.coordinates[i + 14][0], self.coordinates[i + 14][1], 0.000),
+                Point(self.coordinates[i + 15][0], self.coordinates[i + 15][1], 0.000),
                 Quaternion(
                     0.000,
                     0.000,
@@ -210,6 +213,9 @@ class Navigation:
                     euler_to_quaternion(math.radians(90), 0, 0)[3],
                 ),
             )
+            # print("g"+str(i))
+            # print(self.coordinates[i + 14][0])
+            # print(self.coordinates[i + 14][1])
         # 开始点
         for i in range(1):
             self.locations["start"] = Pose(
@@ -217,8 +223,8 @@ class Navigation:
                 Quaternion(
                     0.000,
                     0.000,
-                    euler_to_quaternion(math.radians(-180), 0, 0)[2],
-                    euler_to_quaternion(math.radians(-180), 0, 0)[3],
+                    euler_to_quaternion(math.radians(0), 0, 0)[2],
+                    euler_to_quaternion(math.radians(0), 0, 0)[3],
                 ),
             )
  
@@ -257,7 +263,7 @@ class Navigation:
         self.move_base.send_goal(self.goal)
 
         # 五分钟时间限制
-        finished_within_time = self.move_base.wait_for_result(rospy.Duration(600))
+        finished_within_time = self.move_base.wait_for_result(rospy.Duration(1200))
 
         # 查看是否成功到达
         if not finished_within_time:

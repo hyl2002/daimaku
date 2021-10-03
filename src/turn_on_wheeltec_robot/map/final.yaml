@@ -1,4 +1,4 @@
-image: final.pgm
+image: /home/wheeltec/ros_base/src/turn_on_wheeltec_robot/map/final.pgm
 resolution: 0.030000
 origin: [-0.990000, -0.990000, 0.000000]
 negate: 0
