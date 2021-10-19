@@ -108,7 +108,7 @@ class Navigation:
         rospy.loginfo("Stopping the robot...")
         if not self.succeed:
             self.move_base.cancel_goal()
-        rospy.sleep(2)
+        # rospy.sleep(2)
         self.cmd_vel_pub.publish(Twist())
 
     def coordinates_init(self):
@@ -119,30 +119,57 @@ class Navigation:
 
         # 各投递点初始坐标
         self.coordinates = list()
-        self.coordinates.append([0.65, 1.90])  # p0
-        self.coordinates.append([1.25, 1.90])  # p1
-        self.coordinates.append([3.85, 1.90])  # p2
-        self.coordinates.append([4.5, 1.90])  # p3
-        self.coordinates.append([4.5, 0.65])  # p4
-        self.coordinates.append([3.85, 0.65])  # p5
-        self.coordinates.append([2.85, 0.65])  # p6
-        self.coordinates.append([2.25, 0.65])  # p7
-        self.coordinates.append([1.25, 0.65])  # p8
-        self.coordinates.append([0.65, 0.65])  # p9
+        # self.coordinates.append([0.65, 1.95])  # p0
+        # self.coordinates.append([1.25, 1.95])  # p1
+        # self.coordinates.append([3.85, 1.95])  # p2
+        # self.coordinates.append([4.5, 1.95])  # p3
+        # self.coordinates.append([4.5, 0.60])  # p4
+        # self.coordinates.append([3.85, 0.60])  # p5
+        # self.coordinates.append([2.90, 0.60])  # p6
+        # self.coordinates.append([2.35, 0.60])  # p7
+        # self.coordinates.append([1.25, 0.60])  # p8
+        # self.coordinates.append([0.70, 0.60])  # p9
+        #每个分组第一个坐标为左侧箱子
+        self.coordinates.append([0.70, 1.95])  # p0 #左上角
+        self.coordinates.append([1.25, 1.95])  # p1 
+        self.coordinates.append([1.25, 0.60])  # p2 #左下角
+        self.coordinates.append([0.70, 0.60])  # p3 
+        self.coordinates.append([2.90, 0.60])  # p4 #中间
+        self.coordinates.append([2.35, 0.60])  # p5 
+        
+        self.coordinates.append([4.45, 0.60])  # p6 # 右下角
+        self.coordinates.append([3.90, 0.60])  # p7
+        
+
+        self.coordinates.append([3.85, 1.95])  # p8 #右上角
+        self.coordinates.append([4.5, 1.95])  # p9
+        
+        
+        
+        
         # 识别点
-        self.coordinates.append([0.965, 1.575])  # r0: 0 1
-        self.coordinates.append([4.150, 1.525])  # r1: 2 3
-        self.coordinates.append([4.150, 1.125])  # r2: 4 5
-        self.coordinates.append([2.450, 1.125])  # r3: 6 7
-        self.coordinates.append([0.964, 1.125])  # r4: 8 9
+        # self.coordinates.append([0.925, 1.325])  # r0: 0 1
+        # self.coordinates.append([4.200, 1.325])  # r1: 2 3
+        # self.coordinates.append([4.200, 1.325])  # r2: 4 5
+        # self.coordinates.append([2.600, 1.325])  # r3: 6 7
+        # self.coordinates.append([0.925, 1.325])  # r4: 8 9
+        self.coordinates.append([0.925, 1.325])  # r0: 0 1
+        self.coordinates.append([0.925, 1.325])  # r4: 8 9
+        self.coordinates.append([2.600, 1.325])  # r3: 6 7
+        self.coordinates.append([4.170, 1.325])  # r2: 4 5
+        self.coordinates.append([4.170, 1.325])  # r1: 2 3
+        
+        
+        
 
         # 抓取点 1.5 ~ 3.5
-        self.coordinates.append([1.80, 2.19])  # g0
-        self.coordinates.append([2.10, 2.17])  # g1
-        self.coordinates.append([2.40, 2.17])  # g2
-        self.coordinates.append([2.70, 2.2])  # g3
-        self.coordinates.append([3.00, 2.2])  # g4
-        self.coordinates.append([3.30, 2.2])  # g5
+        self.coordinates.append([1.80, 2.20])  # g0
+        self.coordinates.append([2.10, 2.20])  # g1
+        self.coordinates.append([2.40, 2.20])  # g2
+        self.coordinates.append([2.70, 2.20])  # g3
+        self.coordinates.append([3.00, 2.20])  # g4
+        self.coordinates.append([3.30, 2.20])  # g5
+        self.coordinates.append([3.60, 2.20])  # g6
 
         # self.coordinates.append([3.10, 1.95])    # start
         self.coordinates.append([1.0, 1.0])    # start
@@ -158,8 +185,8 @@ class Navigation:
         #   导航过程中各点的绝对位姿
         #######################################
 
-        # 0~3投递点位姿确定
-        for i in range(4):
+        # 0~1投递点位姿确定
+        for i in range(2):
             self.locations["p" + str(i)] = Pose(
                 Point(self.coordinates[i][0], self.coordinates[i][1], 0.000),
                 Quaternion(
@@ -169,8 +196,8 @@ class Navigation:
                     euler_to_quaternion(math.radians(90), 0, 0)[3],
                 ),
             )
-        # 4~9投递点位姿确定
-        for i in range(4, 10):
+        # 2~7投递点位姿确定
+        for i in range(2, 8):
             self.locations["p" + str(i)] = Pose(
                 Point(self.coordinates[i][0], self.coordinates[i][1], 0.000),
                 Quaternion(
@@ -180,9 +207,19 @@ class Navigation:
                     euler_to_quaternion(math.radians(-90), 0, 0)[3],
                 ),
             )
-        
-        # 0~1识别点位姿确定
-        for i in range(2):
+        # 7~8投递点位姿确定
+        for i in range(8,10):
+            self.locations["p" + str(i)] = Pose(
+                Point(self.coordinates[i][0], self.coordinates[i][1], 0.000),
+                Quaternion(
+                    0.000,
+                    0.000,
+                    euler_to_quaternion(math.radians(90), 0, 0)[2],
+                    euler_to_quaternion(math.radians(90), 0, 0)[3],
+                ),
+            )
+        # 0识别点位姿确定
+        for i in range(1):
             self.locations["r" + str(i)] = Pose(
                 Point(self.coordinates[i + 10][0], self.coordinates[i + 10][1], 0.000),
                 Quaternion(
@@ -192,10 +229,21 @@ class Navigation:
                     euler_to_quaternion(math.radians(90), 0, 0)[3],
                 ),
             )
-        # 2~4识别点位姿确定
-        for i in range(3):
-            self.locations["r" + str(i + 2)] = Pose(
-                Point(self.coordinates[i + 12][0], self.coordinates[i + 12][1], 0.000),
+        # 1~3识别点位姿确定
+        for i in range(1,4):
+            self.locations["r" + str(i)] = Pose(
+                Point(self.coordinates[i + 10][0], self.coordinates[i + 10][1], 0.000),
+                Quaternion(
+                    0.000,
+                    0.000,
+                    euler_to_quaternion(math.radians(-90), 0, 0)[2],
+                    euler_to_quaternion(math.radians(-90), 0, 0)[3],
+                ),
+            )
+        # 4识别点位姿确定
+        for i in range(4,5):
+            self.locations["r" + str(i)] = Pose(
+                Point(self.coordinates[i + 10][0], self.coordinates[i + 10][1], 0.000),
                 Quaternion(
                     0.000,
                     0.000,
@@ -203,8 +251,8 @@ class Navigation:
                     euler_to_quaternion(math.radians(90), 0, 0)[3],
                 ),
             )
-        # 0~5抓取点位姿确定
-        for i in range(6):
+        # 0~6抓取点位姿确定
+        for i in range(7):
             self.locations["g" + str(i)] = Pose(
                 Point(self.coordinates[i + 15][0], self.coordinates[i + 15][1], 0.000),
                 Quaternion(
@@ -220,7 +268,7 @@ class Navigation:
         # 开始点
         for i in range(1):
             self.locations["start"] = Pose(
-                Point(self.coordinates[i + 21][0], self.coordinates[i + 21][1], 0.000),
+                Point(self.coordinates[i + 22][0], self.coordinates[i + 22][1], 0.000),
                 Quaternion(
                     0.000,
                     0.000,
@@ -230,7 +278,7 @@ class Navigation:
             )
         for i in range(1):
             self.locations["middle"] = Pose(
-                Point(self.coordinates[i + 22][0], self.coordinates[i + 22][1], 0.000),
+                Point(self.coordinates[i + 23][0], self.coordinates[i + 23][1], 0.000),
                 Quaternion(
                     0.000,
                     0.000,

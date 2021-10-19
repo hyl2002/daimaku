@@ -19,8 +19,8 @@
    <!--include file="$(find turn_on_robot)/launch/include/amcl.launch" /-->
   <!-- 开启dwa_local_planner导航算法 一般用于差速车-->
    <!--include file="$(find turn_on_robot)/launch/include/dwa_local_planner.launch" /-->
-  <node name='send_mark' pkg="turn_on_robot" type="send_mark.py">
-  </node>
+  <!-- <node name='send_mark' pkg="turn_on_robot" type="send_mark.py">
+  </node> -->
 </launch>
 
 

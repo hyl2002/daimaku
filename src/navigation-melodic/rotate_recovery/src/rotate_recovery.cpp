@@ -70,7 +70,7 @@ void RotateRecovery::initialize(std::string name, tf2_ros::Buffer*,
     private_nh.param("sim_granularity", sim_granularity_, 0.017);
     private_nh.param("frequency", frequency_, 20.0);
 
-    acc_lim_th_ = nav_core::loadParameterWithDeprecation(blp_nh, "acc_lim_theta", "acc_lim_th", 3.2);
+    acc_lim_th_ = nav_core::loadParameterWithDeprecation(blp_nh, "acc_lim_theta", "acc_lim_th", 0.1);
     max_rotational_vel_ = nav_core::loadParameterWithDeprecation(blp_nh, "max_vel_theta", "max_rotational_vel", 1.0);
     min_rotational_vel_ = nav_core::loadParameterWithDeprecation(blp_nh, "min_in_place_vel_theta", "min_in_place_rotational_vel", 0.4);
     blp_nh.param("yaw_goal_tolerance", tolerance_, 0.10);

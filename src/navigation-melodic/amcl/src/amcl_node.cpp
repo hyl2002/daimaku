@@ -434,8 +434,9 @@ AmclNode::AmclNode() :
   }
 
   private_nh_.param("update_min_d", d_thresh_, 0.2);
-  private_nh_.param("update_min_t", t_thresh_double, 0.1);
+  private_nh_.param("update_min_t", t_thresh_double, 1.0);
   t_thresh_ = ros::Duration(t_thresh_double);
+  ROS_INFO("[amcl update time %f]",t_thresh_double);
   private_nh_.param("update_min_a", a_thresh_, M_PI/6.0);
   private_nh_.param("odom_frame_id", odom_frame_id_, std::string("odom"));
   private_nh_.param("base_frame_id", base_frame_id_, std::string("base_link"));
@@ -661,7 +662,7 @@ void AmclNode::reconfigureCB(AMCLConfig &config, uint32_t level)
           new tf2_ros::MessageFilter<sensor_msgs::LaserScan>(*laser_scan_sub_,
                                                              *tf_,
                                                              odom_frame_id_,
-                                                             100,
+                                                             5,
                                                              nh_);
   laser_scan_filter_->registerCallback(boost::bind(&AmclNode::laserReceived,
                                                    this, _1));
@@ -1198,13 +1199,18 @@ AmclNode::laserReceived(const sensor_msgs::LaserScanConstPtr& laser_scan)
                   fabs(delta.v[1]) > d_thresh_ ||
                   fabs(delta.v[2]) > a_thresh_;
     update = update || m_force_update;
-    // update = update && (ros::Time::now() - last_update >t_thresh_) ;
-    // ROS_INFO("[amcl update timer = %f]",t_thresh_double);
     m_force_update=false;
+    if (ros::Time::now() - last_update >t_thresh_)
+    {
+      m_force_update=true;
+      last_update = ros::Time::now();
+    }
+    // ROS_INFO("[amcl update timer]");
+    
 
     // Set the laser update flags
     if(update)
-      last_update = ros::Time::now();
+      // last_update = ros::Time::now();
       for(unsigned int i=0; i < lasers_update_.size(); i++)
         lasers_update_[i] = true;
   }

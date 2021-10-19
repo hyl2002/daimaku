@@ -339,7 +339,7 @@ turn_on_robot::turn_on_robot():Sampling_Time(0),Power_voltage(0)
   try{
          Stm32_Serial.setPort(usart_port_name);//选择哪个口，如果选择的口没有接串口外设初始化会失败
          Stm32_Serial.setBaudrate(serial_baud_rate);//设置波特率
-         serial::Timeout _time = serial::Timeout::simpleTimeout(2000);//超时等待
+         serial::Timeout _time = serial::Timeout::simpleTimeout(4000);//超时等待
          Stm32_Serial.setTimeout(_time);
          Stm32_Serial.open();//串口开启
     }

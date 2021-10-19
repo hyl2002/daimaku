@@ -3,7 +3,7 @@ max_obstacle_height: 2.0  # assume something like an arm is mounted on top of th
 # Obstacle Cost Shaping (http://wiki.ros.org/costmap_2d/hydro/inflation)
 # robot_radius: 0.4  # 如果机器人圆形的，注释下面的一行，开启这个
 #footprint: [[-0.206, -0.208], [-0.206, 0.208],[0.206,0.208],[0.206, -0.208]]  # 机器人形状
-footprint: [[-0.1, -0.2], [-0.1, 0.2],[0.1,0.2],[0.1, -0.2]]  # 机器人形状
+footprint: [[-0.12, -0.32], [-0.12, 0.32],[0.12,0.32],[0.12, -0.32]]  # 机器人形状
 #map_type: voxel
 obstacle_layer:
   enabled:              true #使能障碍层
@@ -35,9 +35,9 @@ obstacle_layer:
 
 #cost_scaling_factor and inflation_radius were now moved to the inflation_layer ns
 inflation_layer:
-  enabled:              true #使能膨胀层
+  enabled:              true # 使能膨胀层
   cost_scaling_factor:  5.0  # exponential rate at which the obstacle cost drops off (default: 10)
-  inflation_radius:     0.02  # 机器人膨胀半径，比如设置为0.3,意味着规划的路径距离0.3米以上，这个参数理论上越大越安全
+  inflation_radius:     0.25  # 机器人膨胀半径，比如设置为0.3,意味着规划的路径距离0.3米以上，这个参数理论上越大越安全
   #但是会导致无法穿过狭窄的地方
 
 static_layer:
