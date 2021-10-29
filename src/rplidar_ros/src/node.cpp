@@ -110,10 +110,10 @@ void publish_scan(ros::Publisher *pub,
         for (size_t i = 0; i < node_count; i++)
         {
             float read_value = (float)nodes[i].dist_mm_q2 / 4.0f / 1000;
-            if (read_value == 0.0 || (i > 40 && i < 60) 
-                || (i > 125 && i < 140) 
-                || (i > 210 && i < 230) 
-                || (i > 305 && i < 320))
+            if (read_value == 0.0 || (i > 35 && i < 55) 
+                || (i > 125 && i < 145) 
+                || (i > 215 && i < 235) 
+                || (i > 305 && i < 325))
                 {
                     // ROS_INFO("[test:%d]",i);
                     // if (read_value != 0.0)
