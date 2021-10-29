@@ -429,6 +429,25 @@ uint32_t TebLocalPlannerROS::computeVelocityCommands(const geometry_msgs::PoseSt
   visualization_->publishObstacles(obstacles_);
   visualization_->publishViaPoints(via_points_);
   visualization_->publishGlobalPlan(global_plan_);
+  if ( fabs(dx) <0.45)
+  {
+    // ROS_INFO("Approaching goal, decrease speed");
+    cmd_vel.twist.linear.x = double(g2o::sign(cmd_vel.twist.linear.x))*fabs(dx)/2.4;
+    if (fabs(cmd_vel.twist.linear.x) < 0.06)
+    {
+      cmd_vel.twist.linear.x = double(g2o::sign(cmd_vel.twist.linear.x))*0.06;
+    }
+  }
+
+  if ( fabs(dy) <0.45)
+  {
+    // ROS_INFO("Approaching goal, decrease speed");
+    cmd_vel.twist.linear.y = double(g2o::sign(cmd_vel.twist.linear.y))*fabs(dy)/2.4;;
+    if (fabs(cmd_vel.twist.linear.y) < 0.06)
+    {
+      cmd_vel.twist.linear.y = double(g2o::sign(cmd_vel.twist.linear.y))*0.06;
+    }
+  }
   return mbf_msgs::ExePathResult::SUCCESS;
 }
 

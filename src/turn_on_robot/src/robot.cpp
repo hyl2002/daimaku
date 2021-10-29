@@ -134,12 +134,12 @@ void turn_on_robot::Publish_Odom()
     odom.twist.twist.linear.y =  Robot_Vel.Y;//y方向前进速度
     odom.twist.twist.angular.z = Robot_Vel.Z;  //角速度 
     //这个矩阵有两种，分机器人静止和动起来的时候用 这是扩展卡尔曼滤波的,官网提供的2个矩阵
-    // if(Robot_Vel.X== 0&&Robot_Vel.Z== 0)//如果velocity是零，说明编码器的误差会比较小，认为编码器数据更可靠
+    if(Robot_Vel.X== 0&&Robot_Vel.Z== 0)//如果velocity是零，说明编码器的误差会比较小，认为编码器数据更可靠
     memcpy(&odom.pose.covariance, odom_pose_covariance2, sizeof(odom_pose_covariance2)),
     memcpy(&odom.twist.covariance, odom_twist_covariance2, sizeof(odom_twist_covariance2));
-    // else//如果小车velocity非零，考虑到运动中编码器可能带来的滑动误差，认为imu的数据更可靠
-    // memcpy(&odom.pose.covariance, odom_pose_covariance, sizeof(odom_pose_covariance)),
-    // memcpy(&odom.twist.covariance, odom_twist_covariance, sizeof(odom_twist_covariance));       
+    else//如果小车velocity非零，考虑到运动中编码器可能带来的滑动误差，认为imu的数据更可靠
+    memcpy(&odom.pose.covariance, odom_pose_covariance, sizeof(odom_pose_covariance)),
+    memcpy(&odom.twist.covariance, odom_twist_covariance, sizeof(odom_twist_covariance));       
     odom_publisher.publish(odom);//发布这个话题 消息类型是nav_msgs::Odometry
 }
 
