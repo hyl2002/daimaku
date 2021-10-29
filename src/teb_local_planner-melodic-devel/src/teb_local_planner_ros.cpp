@@ -433,9 +433,9 @@ uint32_t TebLocalPlannerROS::computeVelocityCommands(const geometry_msgs::PoseSt
   {
     // ROS_INFO("Approaching goal, decrease speed");
     cmd_vel.twist.linear.x = double(g2o::sign(cmd_vel.twist.linear.x))*fabs(dx)/2.4;
-    if (fabs(cmd_vel.twist.linear.x) < 0.06)
+    if (fabs(cmd_vel.twist.linear.x) < 0.02)
     {
-      cmd_vel.twist.linear.x = double(g2o::sign(cmd_vel.twist.linear.x))*0.06;
+      cmd_vel.twist.linear.x = double(g2o::sign(cmd_vel.twist.linear.x))*0.02;
     }
   }
 
@@ -443,9 +443,9 @@ uint32_t TebLocalPlannerROS::computeVelocityCommands(const geometry_msgs::PoseSt
   {
     // ROS_INFO("Approaching goal, decrease speed");
     cmd_vel.twist.linear.y = double(g2o::sign(cmd_vel.twist.linear.y))*fabs(dy)/2.4;;
-    if (fabs(cmd_vel.twist.linear.y) < 0.06)
+    if (fabs(cmd_vel.twist.linear.y) < 0.02)
     {
-      cmd_vel.twist.linear.y = double(g2o::sign(cmd_vel.twist.linear.y))*0.06;
+      cmd_vel.twist.linear.y = double(g2o::sign(cmd_vel.twist.linear.y))*0.02;
     }
   }
   return mbf_msgs::ExePathResult::SUCCESS;
