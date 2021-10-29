@@ -91,12 +91,12 @@ void publish_scan(ros::Publisher *pub,
         for (size_t i = 0; i < node_count; i++)
         {
             float read_value = (float)nodes[i].dist_mm_q2 / 4.0f / 1000;
-            if (read_value == 0.0 || (i > 50 && i < 60) 
+            if (read_value == 0.0 || (i > 40 && i < 50) 
                 || (i > 130 && i < 140)
                 || (i > 220 && i < 230)
                 || (i > 310 && i < 320))
                 {
-                    ROS_INFO_ONCE("[test:%f]",i);
+                    // ROS_INFO_ONCE("[test:%f]",i);
                     scan_msg.ranges[i] = std::numeric_limits<float>::infinity();
                 }
                 
@@ -106,13 +106,13 @@ void publish_scan(ros::Publisher *pub,
         }
     } else {
         ROS_INFO_ONCE("----------Reversed");
-        ROS_INFO_ONCE("[%d]",node_count);
+        // ROS_INFO_ONCE("[%d]",node_count);
         for (size_t i = 0; i < node_count; i++)
         {
             float read_value = (float)nodes[i].dist_mm_q2 / 4.0f / 1000;
-            if (read_value == 0.0 || (i > 40 && i < 55) 
-                || (i > 130 && i < 145) 
-                || (i > 215 && i < 230) 
+            if (read_value == 0.0 || (i > 40 && i < 60) 
+                || (i > 125 && i < 140) 
+                || (i > 210 && i < 230) 
                 || (i > 305 && i < 320))
                 {
                     // ROS_INFO("[test:%d]",i);

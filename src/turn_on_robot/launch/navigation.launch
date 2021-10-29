@@ -12,6 +12,7 @@
    <!-- <include file="$(find turn_on_robot)/launch/include/gmcl_omni.launch" /> -->
   <!-- 开启tel_local_planner导航算法-一般用于全向移动阿克曼等车-->
    <include file="$(find turn_on_robot)/launch/include/teb_local_planner.launch" />
+   <include file="$(find turn_on_robot)/launch/include/laser_line_extraction.launch" />
    
   <!-- <include file="$(find turn_on_robot)/launch/include/eband_local_planner.launch" /> -->
   <!-- <include file="$(find turn_on_robot)/launch/include/base_local_planner.launch" /> -->

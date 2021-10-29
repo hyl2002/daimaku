@@ -83,8 +83,8 @@ class Navigation:
         self.locations_init()
 
         # 确保有初始位置
-        while self.initial_pose.header.stamp == "":
-            rospy.sleep(1)
+        # while self.initial_pose.header.stamp == "":
+        #     rospy.sleep(1)
 
         #####################
         # 执行阶段
@@ -99,7 +99,7 @@ class Navigation:
 
         # 运行所用时间
         running_time = (rospy.Time.now().to_sec() - start_time)
-        rospy.loginfo("Running time: " + str(trunc(running_time,2)))
+        # rospy.loginfo("Running time: " + str(trunc(running_time,2)))
         
     def update_initial_pose(self, initial_pose):
         self.initial_pose = initial_pose
@@ -109,7 +109,7 @@ class Navigation:
         if not self.succeed:
             self.move_base.cancel_goal()
         # rospy.sleep(2)
-        self.cmd_vel_pub.publish(Twist())
+        # self.cmd_vel_pub.publish(Twist())
 
     def coordinates_init(self):
 
@@ -135,7 +135,7 @@ class Navigation:
         self.coordinates.append([1.25, 0.60])  # p2 #左下角
         self.coordinates.append([0.70, 0.60])  # p3 
         self.coordinates.append([2.90, 0.60])  # p4 #中间
-        self.coordinates.append([2.35, 0.60])  # p5 
+        self.coordinates.append([2.30, 0.60])  # p5 
         
         self.coordinates.append([4.45, 0.60])  # p6 # 右下角
         self.coordinates.append([3.90, 0.60])  # p7
@@ -176,8 +176,8 @@ class Navigation:
         self.coordinates.append([2.5, 1.75])    # middle
 
         # 对每个绝对坐标逐个施加变换,使之变成map坐标系下的坐标
-        for i in self.coordinates:
-            self.affect(i)
+        # for i in self.coordinates:
+        #     self.affect(i)
 
     def locations_init(self):
 
@@ -316,7 +316,7 @@ class Navigation:
         self.succeed = False
 
         # 传达机器人的位姿信息
-        rospy.loginfo("Going to:\n " + str(location))
+        # rospy.loginfo("Going to:\n " + str(location))
 
         # 向当前位置进发
         self.move_base.send_goal(self.goal)
@@ -339,7 +339,7 @@ class Navigation:
     def move_base_prepare(self):
 
         # 发布控制机器人的消息
-        self.cmd_vel_pub = rospy.Publisher("cmd_vel", Twist, queue_size=5)
+        # self.cmd_vel_pub = rospy.Publisher("cmd_vel", Twist, queue_size=5)
 
         # 订阅move_base服务器的消息
         self.move_base = actionlib.SimpleActionClient("move_base", MoveBaseAction)
@@ -348,10 +348,10 @@ class Navigation:
 
         # 60s等待时间限制
         self.move_base.wait_for_server(rospy.Duration(60))
-        rospy.loginfo("Connected to move base server")
+        # rospy.loginfo("Connected to move base server")
 
         # 保存机器人在rviz中的初始位置
-        self.initial_pose = PoseWithCovarianceStamped()
+        # self.initial_pose = PoseWithCovarianceStamped()
 
 # 退出时的回调函数
 def shutdown():

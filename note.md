@@ -1,3 +1,5 @@
 - 供电不足会导致雷达报错,operation time out,表现为ROS节点无法与雷达通信
 - 雷达无法通信则会出现tf变换错误,提示target_frame map does not exist
 - 要让机器人以全向移动,需要global planner 里设置运动方向
+- [rf2o] ERROR: Eigensolver couldn't find a solution. Pose is not updated 
+-- 该错误会在探测到过近障碍物时出现,例如意外位移到检测区域的车内线材

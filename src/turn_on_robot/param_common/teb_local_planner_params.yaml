@@ -15,20 +15,20 @@ TebLocalPlannerROS:
  feasibility_check_no_poses: 10 #检测位姿可到达的时间间隔 minimum 0
 
  # Robot
- max_vel_x: 0.5 #最大x前向速度
- max_vel_y: 0.5 #最大y前向速度
+ max_vel_x: 0.3 #最大x前向速度
+ max_vel_y: 0.3 #最大y前向速度
 # max_vel_x: 0.7
  max_vel_x_backwards: 0.3 #Maximum translational velocity of the robot for driving backwards
- max_vel_theta: 0.8 #最大转向角速度
+ max_vel_theta: 0.3 #最大转向角速度
 # max_vel_theta: 1.5
- acc_lim_x: 0.05  #最大x向加速度
- acc_lim_y: 0.05  #最大y向加速度
- acc_lim_theta: 0.2  #最大角加速度
+ acc_lim_x: 0.5  #最大x向加速度
+ acc_lim_y: 0.5  #最大y向加速度
+ acc_lim_theta: 0.6  #最大角加速度
  min_turning_radius: 0.0  #车类机器人的最小转弯半径
  footprint_model: #用于优化的足迹模型(与通用配置文件中的footprint不通用)，该模型对于距离计算的复杂性和计算时间至关重要。与后面的参数min_obstacle_dist一起使用。
   type: "polygon" #多边形类型，默认”point”。
   #vertices: [[-0.133, -0.125], [-0.133, 0.125],[0.133,0.125],[0.133, -0.125]]  #多边形端点坐标 for mini_mec
-  vertices: [[-0.19, -0.32], [-0.19, 0.32],[0.19,0.32],[0.19, -0.32]]  #多边形端点坐标 for senior_mec_no
+  vertices: [[-0.20, -0.32], [-0.20, 0.32],[0.20,0.32],[0.20, -0.32]]  #多边形端点坐标 for senior_mec_no
   #vertices: [[-0.29, -0.27], [-0.29, 0.27],[0.29,0.27],[0.29, -0.27]]  #多边形端点坐标 for senior_mec_dl
   #vertices: [[-0.380, -0.330], [-0.380, 0.330],[0.380,0.208],[0.380, -0.330]]  #多边形端点坐标 for top_mec_bs
   #vertices: [[-0.280, -0.313], [-0.280, 0.313],[0.280,0.313],[0.280, -0.313]]  #多边形端点坐标 for top_mec_dl
@@ -45,7 +45,7 @@ TebLocalPlannerROS:
 
  # GoalTolerance
 
- xy_goal_tolerance: 0.015  #目标 xy 偏移容忍度  minimum 0.001 maximum 0.2
+ xy_goal_tolerance: 0.04  #目标 xy 偏移容忍度  minimum 0.001 maximum 0.2
  yaw_goal_tolerance: 0.01 #目标 角度 偏移容忍度 minimum 0.001 maximum 0.1
  free_goal_vel: False  #允许机器人以最大速度驶向目的地
 
@@ -65,7 +65,7 @@ TebLocalPlannerROS:
  no_outer_iterations: 4  #执行的外循环的优化次数
  optimization_activate: True  #激活优化，
  optimization_verbose: False #打印优化过程详情
- penalty_epsilon: 0.02 #对于硬约束近似，在惩罚函数中添加安全范围
+ penalty_epsilon: 0.2 #对于硬约束近似，在惩罚函数中添加安全范围
  weight_max_vel_x: 1 #最大x速度权重0~2
  weight_max_vel_y: 1 #最大y速度权重0~2
  weight_max_vel_theta: 1  #最大w速度权重0~1
