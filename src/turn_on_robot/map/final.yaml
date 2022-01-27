@@ -1,4 +1,4 @@
-image: /home/wheeltec/ros_base/src/turn_on_robot/map/final.pgm
+image: /home/tdb1/ros_base/src/turn_on_robot/map/final.pgm
 resolution: 0.030000
 origin: [-0.33000, -0.210000, 0.000000]
 negate: 0

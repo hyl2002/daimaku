@@ -420,7 +420,58 @@ uint32_t TebLocalPlannerROS::computeVelocityCommands(const geometry_msgs::PoseSt
   
   // a feasible solution should be found, reset counter
   no_infeasible_plans_ = 0;
-  
+  if ( fabs(dx) < cfg_.robot.speed_reduce_renge)
+  {
+    double factor_x = cfg_.robot.speed_reduce_factory*((cfg_.robot.speed_reduce_renge - fabs(dx))/cfg_.robot.speed_reduce_range_factory);
+    // factor_x (等于距离与距离间差值(距离越近越大))/权值(控制何时到1和减速权值)
+    if (factor_x > cfg_.robot.speed_reduce_factory)
+    {
+      factor_x = cfg_.robot.speed_reduce_factory;
+    }
+    else if (factor_x < 1)
+    {
+      factor_x =1;
+    }
+    // ROS_INFO("Approaching goal, decrease speed");
+    double temp_vel_x = double(g2o::sign(cmd_vel.twist.linear.x))*(fabs(dx)/factor_x);
+    // cmd_vel.twist.linear.y = double(g2o::sign(cmd_vel.twist.linear.y))*(fabs(dy)/factor_y);
+    
+    if (fabs(temp_vel_x) > fabs(cmd_vel.twist.linear.x))
+    {
+      temp_vel_x = cmd_vel.twist.linear.x;
+    }
+    if (fabs(temp_vel_x) < 0.03)
+    {
+      temp_vel_x = double(g2o::sign(cmd_vel.twist.linear.x))*0.03;
+    }
+    cmd_vel.twist.linear.x = temp_vel_x;
+  }
+
+  if ( fabs(dy) < cfg_.robot.speed_reduce_renge)
+  {
+    double factor_y = cfg_.robot.speed_reduce_factory*((cfg_.robot.speed_reduce_renge - fabs(dy))/cfg_.robot.speed_reduce_range_factory);
+    if (factor_y > cfg_.robot.speed_reduce_factory)
+    {
+      factor_y = cfg_.robot.speed_reduce_factory;
+    }
+    else if (factor_y < 1)
+    {
+      factor_y =1;
+    }
+    // ROS_INFO("Approaching goal, decrease speed");
+    double temp_vel_y = double(g2o::sign(cmd_vel.twist.linear.y))*(fabs(dy)/factor_y);
+    // cmd_vel.twist.linear.y = double(g2o::sign(cmd_vel.twist.linear.y))*(fabs(dy)/factor_y);
+    
+    if (fabs(temp_vel_y) > fabs(cmd_vel.twist.linear.y))
+    {
+      temp_vel_y = cmd_vel.twist.linear.y;
+    }
+    if (fabs(temp_vel_y) < 0.03)
+    {
+      temp_vel_y = double(g2o::sign(cmd_vel.twist.linear.y))*0.03;
+    }
+    cmd_vel.twist.linear.y = temp_vel_y;
+  }
   // store last command (for recovery analysis etc.)
   last_cmd_ = cmd_vel.twist;
   
@@ -429,25 +480,7 @@ uint32_t TebLocalPlannerROS::computeVelocityCommands(const geometry_msgs::PoseSt
   visualization_->publishObstacles(obstacles_);
   visualization_->publishViaPoints(via_points_);
   visualization_->publishGlobalPlan(global_plan_);
-  if ( fabs(dx) <0.45)
-  {
-    // ROS_INFO("Approaching goal, decrease speed");
-    cmd_vel.twist.linear.x = double(g2o::sign(cmd_vel.twist.linear.x))*fabs(dx)/2.4;
-    if (fabs(cmd_vel.twist.linear.x) < 0.02)
-    {
-      cmd_vel.twist.linear.x = double(g2o::sign(cmd_vel.twist.linear.x))*0.02;
-    }
-  }
-
-  if ( fabs(dy) <0.45)
-  {
-    // ROS_INFO("Approaching goal, decrease speed");
-    cmd_vel.twist.linear.y = double(g2o::sign(cmd_vel.twist.linear.y))*fabs(dy)/2.4;;
-    if (fabs(cmd_vel.twist.linear.y) < 0.02)
-    {
-      cmd_vel.twist.linear.y = double(g2o::sign(cmd_vel.twist.linear.y))*0.02;
-    }
-  }
+  
   return mbf_msgs::ExePathResult::SUCCESS;
 }
 

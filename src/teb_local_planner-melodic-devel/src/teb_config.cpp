@@ -77,6 +77,9 @@ void TebConfig::loadRosParamFromNodeHandle(const ros::NodeHandle& nh)
   nh.param("acc_lim_x", robot.acc_lim_x, robot.acc_lim_x);
   nh.param("acc_lim_y", robot.acc_lim_y, robot.acc_lim_y);
   nh.param("acc_lim_theta", robot.acc_lim_theta, robot.acc_lim_theta);
+  nh.param("speed_reduce_renge", robot.speed_reduce_renge, robot.speed_reduce_renge);
+  nh.param("speed_reduce_range_factory", robot.speed_reduce_range_factory, robot.speed_reduce_range_factory);
+  nh.param("speed_reduce_factory", robot.speed_reduce_factory, robot.speed_reduce_factory);
   nh.param("min_turning_radius", robot.min_turning_radius, robot.min_turning_radius);
   nh.param("wheelbase", robot.wheelbase, robot.wheelbase);
   nh.param("cmd_angle_instead_rotvel", robot.cmd_angle_instead_rotvel, robot.cmd_angle_instead_rotvel);

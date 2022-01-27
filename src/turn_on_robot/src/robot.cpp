@@ -20,7 +20,7 @@ Function: 数据传输转换函数
 short turn_on_robot::IMU_Trans(uint8_t Data_High,uint8_t Data_Low)
 {
   short transition_16;
-      transition_16 = 0;
+      transition_16 = 0;src
       transition_16 |=  Data_High<<8; 
       transition_16 |=  Data_Low;  
   return transition_16;
