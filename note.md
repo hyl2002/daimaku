@@ -4,4 +4,4 @@
 - [rf2o] ERROR: Eigensolver couldn't find a solution. Pose is not updated 
 -- 该错误会在探测到过近障碍物时出现,例如意外位移到检测区域的车内线材
 - 激光雷达的数据速率只有7hz,因此amcl与rf2o的速率也只有7hz
-- 激光雷达的低发布速率和机器人速度较快共同导致了机器人会冲国目标点
+- 激光雷达的低发布速率和机器人速度较快共同导致了机器人会冲国目标点.
